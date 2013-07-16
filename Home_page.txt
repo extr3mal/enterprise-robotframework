@@ -1,0 +1,18 @@
+*** Settings ***
+Documentation     A test suite with a single test for try page objects against the
+...               Enterprise Site
+Test Teardown     Log TestRun
+Resource          Enterprise_service.txt
+
+*** Test Cases ***
+Goto Nissan Motors Page Via Searching and Clicking
+    # This Test Case doesn't use the the Page Resources, it uses a higher level wikipedia resource
+    Search for Nissan 240SX on Wikipedia
+    From Nissan 240SX page goto Nissan Motors Page
+    #    [Teardown]    Close Browser
+
+*** Keywords ***
+Log TestRun
+    ${html_src} =    Log Source
+    Run Keyword If Test Failed    Create File    target/robot/myerror.html    ${html_src}
+    #    Close Browser
